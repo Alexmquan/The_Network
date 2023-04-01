@@ -1,44 +1,67 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <div class="container-fluid row">
+    <section class="col-11">
+      <PostForm />
+    </section>
+    <section class="col-11 my-3" v-for="p in posts">
+      <PostCard :post="p" />
+    </section>
+    <div class="col-8 text-center">
+      <div class="justify-content-between d-flex">
+        <h4 @click="changePage(newer)"><i class="mdi mdi-arrow-left"></i>Newer</h4>
+        <h4 @click="changePage(older)">Older<i class="mdi mdi-arrow-right"></i></h4>
+
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
+// import { ref } from "vue";
+import { postsService } from "../services/PostsService.js";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
+import { onMounted } from "vue"
+import { computed } from 'vue'
+import { AppState } from "../AppState.js";
+
 export default {
   setup() {
-    return {}
+    async function getPosts() {
+      try {
+        await postsService.getPosts()
+      } catch (error) {
+        logger.log(error.message)
+        Pop.error(error.message)
+      }
+    }
+    onMounted(() => {
+      getPosts()
+    })
+    return {
+      posts: computed(() => AppState.posts),
+      older: computed(() => AppState.older),
+      newer: computed(() => AppState.newer),
+
+      async changePage(url) {
+        try {
+          await postsService.changePage(url)
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error.message)
+        }
+      }
+
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.profile-style {
+  height: 20vh;
+  width: 20vh;
+  border-radius: 50%;
 }
 </style>
