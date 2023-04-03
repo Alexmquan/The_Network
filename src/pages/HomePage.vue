@@ -6,7 +6,7 @@
     <section class="col-11 my-3" v-for="p in posts" :key="p.id">
       <PostCard :post="p" />
     </section>
-    <div class="col-8 text-center">
+    <div class="col-11 text-center">
       <div class="justify-content-between d-flex">
         <h4 class="selectable" @click="changePage(newer)"><i class="mdi mdi-arrow-left"></i>Newer</h4>
         <h4 class="selectable" @click="changePage(older)">Older<i class="mdi mdi-arrow-right"></i></h4>
