@@ -1,5 +1,5 @@
 <template>
-  <div class="elevation-3 rounded p-4">
+  <div class="elevation-3 rounded p-4 ms-3">
     <div class="row">
       <div class="col-2">
         <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
@@ -11,7 +11,7 @@
         <div>
           <h3>{{ post.creator.name }}</h3>
           <div class="d-flex align-items-center ">
-            <h3>{{ post.createdAt }}</h3>
+            <h5>{{ post.createdAt }}</h5>
             <div class="ms-3" v-if="post.creator.graduated">
               <h3><img src="src\assets\img\graduate.svg" alt=""></h3>
             </div>

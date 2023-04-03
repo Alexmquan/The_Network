@@ -39,8 +39,8 @@
     </section>
     <div class="col-8 text-center">
       <div class="justify-content-between d-flex">
-        <h4 @click="changeProfilePage(newer)"><i class="mdi mdi-arrow-left"></i>Newer</h4>
-        <h4 @click="changeProfilePage(older)">Older<i class="mdi mdi-arrow-right"></i></h4>
+        <h4 class="selectable" @click="changeProfilePage(newer)"><i class="mdi mdi-arrow-left"></i>Newer</h4>
+        <h4 class="selectable" @click="changeProfilePage(older)">Older<i class="mdi mdi-arrow-right"></i></h4>
 
       </div>
     </div>

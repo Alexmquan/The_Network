@@ -2,7 +2,7 @@
   <form @submit.prevent="searchStuff()">
     <div>
       <input v-model="search.query" type="text" id="search">
-      <button type="submit" class="search-btn btn selectable"><i class="mdi mdi-magnify"></i></button>
+      <button type="submit" class="search-btn selectable"><i class="mdi mdi-magnify"></i></button>
     </div>
   </form>
 </template>

@@ -1,10 +1,10 @@
 <template>
-  <h2>People</h2>
+  <h2 class="ms-3 mt-3">People</h2>
   <div v-for="profile in profiles">
     <ProfileCard :profile="profile" />
   </div>
-  <h2>Posts</h2>
-  <div v-for="p in posts">
+  <h2 class="ms-3">Posts</h2>
+  <div class="my-4" v-for="p in posts">
     <PostCard :post="p" />
   </div>
 </template>

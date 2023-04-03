@@ -57,6 +57,10 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .ads-style {
   width: 50px
 }
