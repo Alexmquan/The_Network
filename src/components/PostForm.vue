@@ -10,11 +10,11 @@
         <div class="">
           <form @submit.prevent="createPost()" class="row">
             <div class="col-12 pe-5 m-3">
-              <label for="body" class="me-2">Body</label>
+              <!-- <label for="body" class="me-2">Body</label>
               <input type="text" v-model="editable.body" class="form-control" name="body" id="body" maxlength="400"
-                placeholder="Share whats happening">
-              <!-- <textarea name="body" v-model="editable.body" id="body" cols="100" rows="4"
-                placeholder="Share whats happening"></textarea> -->
+                placeholder="Share whats happening"> -->
+              <textarea name="body" v-model="editable.body" class="form-control" id="body" cols="100" rows="4"
+                placeholder="Share whats happening"></textarea>
             </div>
             <div class="col-12 pe-5 m-3">
               <label for="imgUrl" class="me-2">Add Photo Url</label>
