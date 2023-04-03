@@ -1,9 +1,11 @@
 <template>
   <div class="elevation-3 rounded p-3 my-5">
     <div class="row ">
-      <div class="col-2"><img class="profile-style img-fluid"
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          alt=""></div>
+      <div class="col-2">
+        <!-- <router-link :to="{ name: 'Profile', params: { profileId: AppState.account.id } }"> -->
+        <img class="profile-img-style img-fluid" :src="account.picture" alt="">
+        <!-- </router-link> -->
+      </div>
       <div class="col-10">
         <div class="">
           <form @submit.prevent="createPost()" class="row">
@@ -17,7 +19,7 @@
               <input type="url" v-model="editable.imgUrl" name="imgUrl" id="imgUrl" maxlength="200">
             </div>
             <div class="d-flex justify-content-end me-5 my-3">
-              <button class="btn btn-success">Post</button>
+              <button type="submit" class="btn btn-success">Post</button>
             </div>
           </form>
         </div>
@@ -29,15 +31,46 @@
 
 <script>
 import { ref } from "vue";
+import { Post } from "../models/Post.js";
+import Pop from "../utils/Pop.js";
+import { postsService } from "../services/PostsService.js";
+import { computed, onMounted } from "vue";
+import { AppState } from "../AppState.js"
+import { logger } from "../utils/Logger.js";
+import { useRoute } from "vue-router";
+import { profilesService } from "../services/ProfilesService.js";
+
 export default {
+
   setup() {
+    // const route = useRoute()
     const editable = ref({})
+
+    // async function getProfileById() {
+    //   try {
+    //     const profileId = route.params.profileId
+    //     await profilesService.getProfileById(profileId)
+    //   } catch (error) {
+    //     logger.error(error.message)
+    //     Pop.error(error.message)
+    //   }
+    // }
+
+    onMounted(() => {
+      // getProfileById()
+
+    })
 
     return {
       editable,
+      account: computed(() => AppState.account),
+      post: computed(() => AppState.posts),
+
+
       async createPost() {
         try {
-
+          const postData = editable.value
+          await postsService.createPost(postData)
         } catch (error) {
           logger.log(error.message)
           Pop.error(error.message)
@@ -49,4 +82,12 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-img-style {
+  height: 10vh;
+  width: 10vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+</style>

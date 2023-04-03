@@ -10,11 +10,13 @@ export class Profile {
     this.linkedin = data.linkedin
     this.class = data.class
     this.graduated = data.graduated
+    this.resume = data.resume
   }
 }
 
 export class Account extends Profile {
   constructor(data) {
+    super(data)
     this.email = data.email
   }
 }

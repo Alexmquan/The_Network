@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid row">
-    <section class="col-11">
+    <section class="col-11" v-if="account.id">
       <PostForm />
     </section>
-    <section class="col-11 my-3" v-for="p in posts">
+    <section class="col-11 my-3" v-for="p in posts" :key="p.id">
       <PostCard :post="p" />
     </section>
     <div class="col-8 text-center">
@@ -43,6 +43,7 @@ export default {
       posts: computed(() => AppState.posts),
       older: computed(() => AppState.older),
       newer: computed(() => AppState.newer),
+      account: computed(() => AppState.account),
 
       async changePage(url) {
         try {

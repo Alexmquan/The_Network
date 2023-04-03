@@ -11,5 +11,10 @@ export const AppState = reactive({
   posts: [],
   /** @type {import('./models/Post.js').Post} */
   older: null,
-  newer: null
+  newer: null,
+  /** @type {import('./models/Profile.js').Profile} */
+  activeProfile: null,
+  reactCount: 0,
+  /** @type {import('./models/Profile.js').Profile[]} */
+  searchProfiles: [],
 })
