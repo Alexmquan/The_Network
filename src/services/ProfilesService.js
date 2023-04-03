@@ -9,6 +9,14 @@ class ProfilesService {
     logger.log('[Active Profile Service]', res.data)
     AppState.activeProfile = new Profile(res.data)
   }
+
+  async searchProfiles(query) {
+    const res = await api.get('api/profiles?query=' + query)
+    logger.log('[Search Profile Service]', res.data)
+    AppState.searchProfiles = res.data.map(p => new Profile(p))
+    logger.log('[Search Peoples]', AppState.searchProfiles)
+
+  }
 }
 
 export const profilesService = new ProfilesService()

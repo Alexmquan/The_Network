@@ -23,34 +23,39 @@ class PostsService {
   async getPostsByProfileId(query) {
     const res = await api.get('/api/posts', { params: query })
     AppState.posts = res.data.posts.map(p => new Post(p))
+    logger.log('[]profile posts]', res.data)
+    AppState.older = res.data.older
+    AppState.newer = res.data.newer
   }
 
   async createPost(formData) {
     const res = await api.post('/api/posts', formData)
     const newPost = new Post(res.data)
-    AppState.posts.push(newPost)
+    AppState.posts.unshift(newPost)
     return newPost
   }
 
   async deletePost(postId) {
-    const res = await api.delete('api/posts/' + postId)
+    await api.delete('api/posts/' + postId)
+    const index = AppState.posts.findIndex(p => p.id == postId);
+    AppState.posts.splice(index, 1)
     logger.log('[delete post', postId)
-    AppState.posts = AppState.posts
+
   }
 
   async changeLikes(postId) {
     const res = await api.post(`/api/posts/${postId}/like`)
     const newPost = new Post(res.data)
-    AppState.posts.push(newPost)
-    return newPost
-
+    const index = AppState.posts.findIndex(p => p.id == postId);
+    if (index >= 0) {
+      AppState.posts.splice(index, 1, newPost);
+    }
   }
 
   async searchPosts(query) {
-    const res = await api.get('/api/posts/search?query=' + query)
+    const res = await api.get('/api/posts?query=' + query)
     logger.log('Search Posts', res.data)
-    AppState.posts = res.data.posts.map(p = new Post(p))
-
+    AppState.posts = res.data.posts.map(p => new Post(p))
   }
 
 }

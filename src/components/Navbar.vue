@@ -10,9 +10,7 @@
 
     <div class="d-flex align-items-center">
       <div>
-        <router-link :to="{ name: 'Search' }">
-          <SearchForm />
-        </router-link>
+        <SearchForm />
       </div>
       <div class="ms-4">
         <Login />

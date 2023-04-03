@@ -1,7 +1,7 @@
 <template>
-  <form @submit.prevent="searchPosts()">
-    <div class="">
-      <input v-model="editable.query" type="text" id="search">
+  <form @submit.prevent="searchStuff()">
+    <div>
+      <input v-model="search.query" type="text" id="search">
       <button type="submit" class="search-btn btn selectable"><i class="mdi mdi-magnify"></i></button>
     </div>
   </form>
@@ -13,17 +13,26 @@ import { postsService } from "../services/PostsService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { profilesService } from "../services/ProfilesService.js";
 
 export default {
   setup() {
-    const editable = ref({})
+    const search = ref({})
+    const router = useRouter();
+    const route = useRoute();
     return {
-      editable,
 
-      async searchPosts() {
+      search,
+
+      async searchStuff() {
         try {
-          const query = editable.value
-          logger.log('[Search Query]', query)
+          const currentPath = route.path;
+          if (currentPath != '/search') {
+            router.push({ name: 'Search' })
+          }
+          const query = search.value.query
+          await profilesService.searchProfiles(query)
           await postsService.searchPosts(query)
         } catch (error) {
           logger.log(error.message)

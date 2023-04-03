@@ -67,7 +67,7 @@ export default {
           if (await Pop.confirm('Are you sure you want to delete this post?')) {
             const postId = props.post.id
             await postsService.deletePost(postId)
-            // router.push({ name: "Home"})
+
           }
         } catch (error) {
           logger.log(error.message)

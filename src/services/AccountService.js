@@ -1,5 +1,5 @@
 import { AppState } from '../AppState'
-import { Account } from '../models/Account.js'
+import { Account, Profile } from '../models/Account.js'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
@@ -15,7 +15,7 @@ class AccountService {
 
   async editAccount(edits) {
     const res = await api.put('/account', edits)
-    AppState.account = new Account(res.data)
+    AppState.activeProfile = new Profile(res.data)
   }
 }
 

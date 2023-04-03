@@ -35,7 +35,15 @@
     </section>
     <section class="col-11 my-3" v-for="p in posts">
       <PostCard :post="p" />
+
     </section>
+    <div class="col-8 text-center">
+      <div class="justify-content-between d-flex">
+        <h4 @click="changeProfilePage(newer)"><i class="mdi mdi-arrow-left"></i>Newer</h4>
+        <h4 @click="changeProfilePage(older)">Older<i class="mdi mdi-arrow-right"></i></h4>
+
+      </div>
+    </div>
 
   </div>
   <EditModal />
@@ -71,6 +79,7 @@ export default {
     async function getPostsByProfileId() {
       try {
         const profileId = route.params.profileId
+
         logger.log('[Get postby id]', profileId)
         await postsService.getPostsByProfileId({ creatorId: profileId })
       } catch (error) {
@@ -88,6 +97,18 @@ export default {
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
+      older: computed(() => AppState.older),
+      newer: computed(() => AppState.newer),
+
+
+      async changeProfilePage(url) {
+        try {
+          await postsService.changePage(url)
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error.message)
+        }
+      },
 
       select(url) {
         logger.log('[url]', url)
